@@ -1,34 +1,34 @@
-package com.example.ShopNWatchAPI.model;
+package com.example.ShopNWatchAPI.model.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@Setter
 @Getter
 @Entity
-public class User {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Setter
     private String full_name;
-    @Setter
     private String email;
-    @Setter
     private String password;
 
-    public User() {
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+
+    public Customer() {
     }
 
-    public User(Long id, String full_name, String email, String password) {
+    public Customer(Long id, String full_name, String email, String password, Address address) {
         this.id = id;
         this.full_name = full_name;
         this.email = email;
         this.password = password;
+        this.address = address;
     }
 
 }

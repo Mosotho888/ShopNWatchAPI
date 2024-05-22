@@ -1,15 +1,8 @@
-package com.example.ShopNWatchAPI.model;
+package com.example.ShopNWatchAPI.model.movies;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+@Entity
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,12 +10,15 @@ public class Movie {
     private String title;
     private int rating;
     @ManyToOne
+    @JoinColumn(name = "language_id")
     private Language language;
 
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne
+    @JoinColumn(name = "actor_id")
     private Actor actor;
 
     public Movie() {

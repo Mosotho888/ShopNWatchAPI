@@ -1,6 +1,6 @@
 package com.example.ShopNWatchAPI.service;
 
-import com.example.ShopNWatchAPI.model.User;
+import com.example.ShopNWatchAPI.model.user.Customer;
 import com.example.ShopNWatchAPI.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -18,8 +17,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public ResponseEntity<List<User>> findAllUsers(Pageable pageable) {
-        Page<User> page = userRepository.findAll(
+    public ResponseEntity<List<Customer>> findAllUsers(Pageable pageable) {
+        Page<Customer> page = userRepository.findAll(
                 PageRequest.of(
                         pageable.getPageNumber(),
                         pageable.getPageSize(),

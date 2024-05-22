@@ -19,8 +19,8 @@ public class Config {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/admin/**")
-                        .hasRole("ADMIN"))
+                        .requestMatchers("/**")
+                        .hasRole("USER"))
                 .httpBasic(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable());
 
@@ -38,7 +38,7 @@ public class Config {
         UserDetails tebu = users
                 .username("tebu1")
                 .password(passwordEncoder.encode("12345"))
-                .roles("USER")
+                .roles("USER", "ADMIN")
                 .build();
         UserDetails mama = users
                 .username("mama1")
