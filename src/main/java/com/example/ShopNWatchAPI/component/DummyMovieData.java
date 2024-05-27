@@ -58,9 +58,21 @@ public class DummyMovieData implements CommandLineRunner {
 
         // Create and save movies
         List<Movie> movies = Arrays.asList(
-                new Movie(null, "Inception", 9, language1, category1, actor1),
-                new Movie(null, "The Shawshank Redemption", 10, language2, category2, actor2),
-                new Movie(null, "Parasite", 8, language3, category3, actor3)
+                new Movie(null, "Inception",
+                        9,
+                        language1,
+                        category1,
+                        actor1),
+                new Movie(null, "The Shawshank Redemption",
+                        10,
+                        language2,
+                        category2,
+                        actor2),
+                new Movie(null, "Parasite",
+                        8,
+                        language3,
+                        category3,
+                        actor3)
                 // Add more movies as needed
         );
 
