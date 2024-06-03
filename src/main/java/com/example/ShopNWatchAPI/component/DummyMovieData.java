@@ -1,13 +1,7 @@
 package com.example.ShopNWatchAPI.component;
 
-import com.example.ShopNWatchAPI.model.movies.Actor;
-import com.example.ShopNWatchAPI.model.movies.Category;
-import com.example.ShopNWatchAPI.model.movies.Language;
-import com.example.ShopNWatchAPI.model.movies.Movie;
-import com.example.ShopNWatchAPI.repository.ActorRepository;
-import com.example.ShopNWatchAPI.repository.CategoryRepository;
-import com.example.ShopNWatchAPI.repository.LanguageRepository;
-import com.example.ShopNWatchAPI.repository.MovieRepository;
+import com.example.ShopNWatchAPI.model.movies.*;
+import com.example.ShopNWatchAPI.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -26,6 +20,8 @@ public class DummyMovieData implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private LanguageRepository languageRepository;
+    @Autowired
+    private FavouriteRepository favouriteRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -77,5 +73,12 @@ public class DummyMovieData implements CommandLineRunner {
         );
 
         movieRepository.saveAll(movies);
+
+        List<Favourite> favourites = Arrays.asList(
+                new Favourite(null, movies.get(1), "tebu1"),
+                new Favourite(null, movies.get(2), null)
+        );
+
+        favouriteRepository.saveAll(favourites);
     }
 }

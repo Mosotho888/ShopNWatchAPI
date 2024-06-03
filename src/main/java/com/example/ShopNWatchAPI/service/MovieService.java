@@ -43,8 +43,13 @@ public class MovieService {
         return ResponseEntity.notFound().build();
     }
 
-    public ResponseEntity<Void> addMovie(@RequestBody Movie newMovie, UriComponentsBuilder ucb){
-        Movie movie = new Movie(null, newMovie.getTitle(), newMovie.getRating(), newMovie.getLanguage(), newMovie.getCategory(), newMovie.getActor());
+    public ResponseEntity<Void> addMovie(Movie newMovie, UriComponentsBuilder ucb){
+        Movie movie = new Movie(null,
+                newMovie.getTitle(),
+                newMovie.getRating(),
+                newMovie.getLanguage(),
+                newMovie.getCategory(),
+                newMovie.getActor());
         Movie addedMovie = movieRepository.save(movie);
 
         URI locationOfNewMovie = ucb
@@ -53,5 +58,32 @@ public class MovieService {
                 .toUri();
 
         return ResponseEntity.created(locationOfNewMovie).build();
+    }
+
+    public ResponseEntity<Void> updateMovie(Movie movieUpdated, long movieId){
+        Optional<Movie> movie = movieRepository.findById(movieId);
+
+        if (movie.isPresent()){
+            Movie updatedMovie = new Movie(movieId,
+                    movieUpdated.getTitle(),
+                    movieUpdated.getRating(),
+                    movieUpdated.getLanguage(),
+                    movieUpdated.getCategory(),
+                    movieUpdated.getActor());
+            movieRepository.save(updatedMovie);
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    public ResponseEntity<Void> deleteMovie(Long movieId){
+        if (movieRepository.existsById(movieId)){
+            movieRepository.deleteById(movieId);
+
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }

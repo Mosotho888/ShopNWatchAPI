@@ -34,4 +34,14 @@ public class MovieController {
     public ResponseEntity<Void> addMovie(@RequestBody Movie newMovie, UriComponentsBuilder ucb){
         return movieService.addMovie(newMovie, ucb);
     }
+
+    @PutMapping("/{movieId}")
+    public ResponseEntity<Void> updateMovie(@RequestBody Movie movieUpdated, @PathVariable Long movieId){
+        return movieService.updateMovie(movieUpdated, movieId);
+    }
+
+    @DeleteMapping("/{movieId}")
+    public ResponseEntity<Void> deleteMovie(@PathVariable Long movieId){
+        return movieService.deleteMovie(movieId);
+    }
 }
