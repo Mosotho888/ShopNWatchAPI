@@ -1,19 +1,17 @@
 package com.example.ShopNWatchAPI.service;
 
-import com.example.ShopNWatchAPI.model.movies.Actor;
-import com.example.ShopNWatchAPI.model.movies.Category;
-import com.example.ShopNWatchAPI.model.movies.Language;
-import com.example.ShopNWatchAPI.model.movies.Movie;
+import com.example.ShopNWatchAPI.model.movies.*;
 import com.example.ShopNWatchAPI.repository.MovieRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +32,16 @@ public class MovieService {
         return ResponseEntity.ok(page.getContent());
     }
 
+    public ResponseEntity<List<Movie>> findByCategory(Category category, Pageable pageable){
+        Page<Movie> page = movieRepository.findByCategory(category,
+                PageRequest.of(
+                        pageable.getPageNumber(),
+                        pageable.getPageSize(),
+                        pageable.getSortOr(Sort.by(Sort.Direction.ASC, "id"))
+                ));
+        return ResponseEntity.ok(page.getContent());
+    }
+
     public ResponseEntity<Optional<Movie>> findByMovieId(Long movieId){
         Optional<Movie> movie = movieRepository.findById(movieId);
         if (movie.isPresent()){
@@ -47,6 +55,7 @@ public class MovieService {
         Movie movie = new Movie(null,
                 newMovie.getTitle(),
                 newMovie.getRating(),
+                newMovie.getReleaseYear(),
                 newMovie.getLanguage(),
                 newMovie.getCategory(),
                 newMovie.getActor());
@@ -67,6 +76,7 @@ public class MovieService {
             Movie updatedMovie = new Movie(movieId,
                     movieUpdated.getTitle(),
                     movieUpdated.getRating(),
+                    movieUpdated.getReleaseYear(),
                     movieUpdated.getLanguage(),
                     movieUpdated.getCategory(),
                     movieUpdated.getActor());
