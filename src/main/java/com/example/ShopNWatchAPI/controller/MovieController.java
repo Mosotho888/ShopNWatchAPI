@@ -21,7 +21,7 @@ import java.util.Optional;
 public class MovieController {
 
     private final MovieService movieService;
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     public MovieController(MovieService movieService, CategoryRepository categoryRepository) {
         this.movieService = movieService;
